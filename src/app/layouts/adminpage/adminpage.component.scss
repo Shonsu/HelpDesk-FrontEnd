@@ -1,0 +1,31 @@
+.header{
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background: #292b31;
+    padding: 20px;
+    font-size: 24px;
+    color: #ffffff;
+}
+.mainbody{
+    flex-direction: row;
+    flex: 1 1 auto;
+    display: flex;
+}
+.sidebar{
+    flex: 0 1 auto;
+    background-color: green;
+    display: flex;
+    padding: 20px;
+}
+.content{
+    flex: 1 1 auto;
+    display: flex;
+    padding: 20px;
+}
+:host{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: rgb(172, 232, 255);
+}
