@@ -1,0 +1,13 @@
+on:
+  issues:
+    types: [opened]
+jobs:
+  createCard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create or Update Project Card
+        uses: peter-evans/create-or-update-project-card@v2
+        with:
+          project-name: Shonsu's HelpDesk project
+          column-name: Todo
+          issue-number: ${{ github.event.number }}
