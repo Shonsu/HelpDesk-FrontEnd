@@ -5,17 +5,10 @@
 </header>
 <div class="mainbody">
     <div class="sidebar">
-        <ul>
-            <li>
-                Test 1
-            </li>
-            <li>
-                Test 2
-            </li>
-            <li>
-                Test 3 
-            </li>
-        </ul>
+        <mat-nav-list>
+            <a mat-list-item routerLink="/admin/tickets" class="list-item" >Ticket Forms</a>
+            <a mat-list-item routerLink="/admin/categories" class="list-item">Categories</a>
+        </mat-nav-list>
     </div>
     <div class="content">
         <router-outlet></router-outlet>

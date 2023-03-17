@@ -1,0 +1,13 @@
+<div [formGroup]="parentForm" class="ticketForm">
+    <mat-form-field appearance="fill">
+        <mat-label>Category</mat-label>
+        <input matInput placeholder="Enter the category label" formControlName="label">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <input matInput placeholder="Enter description" formControlName="description">
+    </mat-form-field>    
+    <div>
+        <button mat-flat-button color="primary" [disabled]="!parentForm.valid">Save</button>
+    </div>
+</div>
