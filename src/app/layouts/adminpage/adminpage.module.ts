@@ -16,7 +16,9 @@ import { AdminTicketSubcategoryAddComponent } from 'src/app/modules/admin/admin-
 import { AdminTicketSubcategoryUpdateComponent } from 'src/app/modules/admin/admin-ticket-subcategory/admin-ticket-subcategory-update/admin-ticket-subcategory-update.component';
 import { AdminMessageComponent } from 'src/app/modules/admin/component/admin-message/admin-message.component';
 import { AdminConfirmDialogComponent } from 'src/app/modules/admin/component/admin-confirm-dialog/admin-confirm-dialog.component';
-
+import { AdminTicketAddComponent } from 'src/app/modules/admin/admin-ticket/admin-ticket-add/admin-ticket-add.component';
+import { AdminTicketUpdateComponent } from 'src/app/modules/admin/admin-ticket/admin-ticket-update/admin-ticket-update.component';
+import { AdminTicketFormComponent } from 'src/app/modules/admin/admin-ticket/admin-ticket-form/admin-ticket-form.component';
 
 
 @NgModule({
@@ -33,7 +35,11 @@ import { AdminConfirmDialogComponent } from 'src/app/modules/admin/component/adm
     AdminTicketSubcategoryUpdateComponent,
     AdminTicketSubCategoryFormComponent,
     AdminMessageComponent,
-    AdminConfirmDialogComponent
+    AdminConfirmDialogComponent,
+    AdminTicketAddComponent,
+    AdminTicketUpdateComponent,
+    AdminTicketFormComponent
+
   ],
   imports: [
     CommonModule,

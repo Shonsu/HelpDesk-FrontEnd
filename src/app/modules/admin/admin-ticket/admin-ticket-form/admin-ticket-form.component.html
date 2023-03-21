@@ -1,0 +1,26 @@
+<div [formGroup]="parentForm" class="formTicket">
+    <mat-form-field appearance="fill">
+        <mat-label>Label:</mat-label>
+        <input matInput placeholder="Enter the ticket label" formControlName>
+    </mat-form-field>
+    <h3>Add input fields:</h3>
+
+    <ng-container formArrayName="formFields">
+        <ng-container *ngFor="let formField of formFields.controls; let i = index">
+            <div [formGroupName]="i">
+                <mat-form-field appearance="fill">
+                    <input matInput formControlName="key" placeholder="Field key">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <input matInput formControlName="label" placeholder="Field label">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <input matInput formControlName="reqired" placeholder="Field required">
+                </mat-form-field>
+            </div>
+        </ng-container>
+    </ng-container>
+    <button mat-mini-fab (click)="addLesson()">
+        <mat-icon class="add-form-field" ()>add</mat-icon>
+    </button>
+</div>
