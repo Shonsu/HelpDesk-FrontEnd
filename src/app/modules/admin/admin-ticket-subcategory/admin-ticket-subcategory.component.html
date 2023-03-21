@@ -1,10 +1,10 @@
 <div class="headerRow">
     <div class="headerLabel">
-        <h1> Ticket's category list</h1>
+        <h1> Ticket's subcategory list</h1>
     </div>
     <div class="buttonAdd">
-        <button mat-raised-button color="accent" routerLink="/admin/categories/add">
-            Add category<mat-icon>add</mat-icon>
+        <button mat-raised-button color="accent" routerLink="/admin/subcategories/add">
+            Add subcategory<mat-icon>add</mat-icon>
         </button>
     </div>
 </div>
@@ -24,7 +24,7 @@
     <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let element">
-            <button mat-icon-button [routerLink]="['/admin/categories/update', element.id]">
+            <button mat-icon-button [routerLink]="['/admin/subcategories/update', element.id]">
                 <mat-icon>edit</mat-icon>
             </button>
             <button mat-icon-button (click)="confirmDelete(element)">

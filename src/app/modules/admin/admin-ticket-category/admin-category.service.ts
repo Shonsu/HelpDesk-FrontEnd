@@ -25,4 +25,12 @@ export class AdminCategoryService {
     saveCategory(id: number, value: any): Observable<AdminCategory> {
         return this.http.put<AdminCategory>("/api/admin/categories/" + id, value);
     }
+
+    deleteCategory(id: number) {
+        return this.http.delete("/api/admin/categories/" + id);
+    }
+
+    search(text: string): Observable<AdminCategoryNameDto[]>{
+        return this.http.get<AdminCategoryNameDto[]>(`/api/admin/categories/search?text=${text}`);
+    }
 }

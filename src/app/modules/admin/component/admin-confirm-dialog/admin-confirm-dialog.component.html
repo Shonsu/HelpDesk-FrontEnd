@@ -1,0 +1,12 @@
+<div class="messageDialog">
+    <div class="message">
+        <span>{{data.message}}</span>
+        <button mat-icon-button [mat-dialog-close]="false">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <div class="buttonAction">
+        <button mat-raised-button fxFlex [mat-dialog-close]="false">Cancel</button>
+        <button mat-raised-button fxFlex color="warn" [mat-dialog-close]="true">Confirm</button>
+    </div>
+</div>

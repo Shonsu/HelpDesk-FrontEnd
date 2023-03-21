@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { AdminMessageService } from '../../service/admin-message.service';
 import { AdminCategoryService } from '../admin-category.service';
 import { AdminCategory } from '../model/adminCategory';
 
@@ -16,7 +18,9 @@ export class AdminTicketCategoryUpdateComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private router: ActivatedRoute,
-        private adminCategoryService: AdminCategoryService
+        private adminCategoryService: AdminCategoryService,
+        private adminMessageService: AdminMessageService,
+        private snackBar: MatSnackBar
     ) { }
 
     ngOnInit(): void {
@@ -32,24 +36,26 @@ export class AdminTicketCategoryUpdateComponent implements OnInit {
         this.adminCategoryService.getCategory(id)
             .subscribe(category => { this.mapToFromValues(category) });
     }
+    
+    submit() {
+        let id = Number(this.router.snapshot.params['id']);
+        this.adminCategoryService.saveCategory(id, this.categoryForm.value)
+        .subscribe({
+            next: category => {
+                this.mapToFromValues(category);
+                this.snackBar.open("Cattegory has been updated", '', { duration: 3000 })
+            },
+            error: err => {
+                this.adminMessageService.addSpringErrors(err.error)
+            }
+        });
+    }
+
     mapToFromValues(category: AdminCategory) {
         this.categoryForm.setValue({
             label: category.label,
             description: category.description
         });
     }
-
-    submit() {
-        let id = Number(this.router.snapshot.params['id']);
-        this.adminCategoryService.saveCategory(id, this.categoryForm.value)
-            .subscribe({
-                next: category => {
-                    this.mapToFromValues(category);
-                },
-                error: err => {
-
-                }
-            });
-    }
-
+    
 }

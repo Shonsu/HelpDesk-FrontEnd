@@ -1,0 +1,15 @@
+.messageBox{
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    padding: 15px;
+    background-color: #ff9292
+}
+.messages{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    div{
+        padding: 5px;
+    }
+}

@@ -1,12 +1,20 @@
-<div [formGroup]="parentForm" class="ticketCategory">
+<div [formGroup]="parentForm" class="ticketSubCategory">
     <mat-form-field appearance="fill">
-        <mat-label>Category</mat-label>
+        <mat-label>Subcategory</mat-label>
         <input matInput placeholder="Enter the category label" formControlName="label">
     </mat-form-field>
     <mat-form-field appearance="fill">
         <mat-label>Description</mat-label>
         <input matInput placeholder="Enter description" formControlName="description">
     </mat-form-field>    
+    <mat-form-field appearance="fill">
+        <mat-label>Parent category</mat-label>
+        <mat-select formControlName="ticketCategoryId">
+            <mat-option *ngFor="let el of categories" [value]="el.id">
+            {{el.label}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
     <div>
         <button mat-flat-button color="primary" [disabled]="!parentForm.valid">Save</button>
     </div>

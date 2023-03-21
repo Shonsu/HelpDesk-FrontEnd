@@ -1,79 +1,75 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { NavigationEnd, Router } from '@angular/router';
-import { debounceTime, distinctUntilChanged, Subject, Subscription } from 'rxjs';
+import { debounceTime, Subject, Subscription } from 'rxjs';
 import { AdminConfirmDialogService } from '../service/admin-confirm-dialog.service';
 import { AdminMessageService } from '../service/admin-message.service';
-import { AdminCategoryService } from './admin-category.service';
-import { AdminCategoryNameDto } from './model/adminCategoryNameDto';
+import { AdminTicketSubcategoryService } from './admin-ticket-subcategory.service';
+import { AdminSubCategoryNameDto } from './model/adminSubCategoryNameDto';
 
 @Component({
-    selector: 'app-admin-category',
-    templateUrl: './admin-category.component.html',
-    styleUrls: ['./admin-category.component.scss']
+    selector: 'app-admin-ticket-subcategory',
+    templateUrl: './admin-ticket-subcategory.component.html',
+    styleUrls: ['./admin-ticket-subcategory.component.scss']
 })
-export class AdminCategoryComponent implements OnInit, OnDestroy {
+export class AdminTicketSubcategoryComponent implements OnInit, OnDestroy {
 
     @ViewChild(MatTable) table!: MatTable<any>;
-    searchText$ = new Subject<string>();
-    searchTextlength = 0;
-    data: Array<AdminCategoryNameDto> = [];
-
+    data: Array<AdminSubCategoryNameDto> = [];
     displayedColumns: string[] = ['id', 'label', 'actions'];
     private sub!: Subscription;
-
+    searchText$ = new Subject<string>();
+    searchTextlength = 0;
     constructor(
-        private adminCategoryService: AdminCategoryService,
+        private ticketSubcategoryService: AdminTicketSubcategoryService,
         private router: Router,
+        private adminTicketSubCategoryService: AdminTicketSubcategoryService,
         private dialogService: AdminConfirmDialogService,
         private adminMessageService: AdminMessageService
     ) { }
 
     ngOnInit(): void {
-
         this.searchText$
             .pipe(debounceTime(500))
-            .subscribe(searchText => {
-                this.adminCategoryService.search(searchText)
-                    .subscribe(categories => this.data = categories);
-            });
+            .subscribe(searchText => this.adminTicketSubCategoryService.search(searchText)
+                .subscribe(subCategories => this.data = subCategories));
 
         this.sub = this.router.events.subscribe(
             (event) => {
                 if (event instanceof NavigationEnd) {
-                    this.getCategories();
+                    this.getSubcategories();
                 }
             }
-        )
-        this.getCategories();
+        );
+        this.getSubcategories();
     }
 
     ngOnDestroy(): void {
-        this.sub.unsubscribe();
-    }
-
-    getCategories() {
-        this.adminCategoryService.getCategories()
-            .subscribe(categories => this.data = categories);
+        this.sub.unsubscribe()
     }
 
     searchOnKeyUp(event: any) {
         const searchText = event.target.value.trim();
-        
+
         if (searchText.length >= 4) {
             this.searchTextlength = searchText.length;
             this.searchText$.next(searchText);
         } else if (searchText.length <= 3 && this.searchTextlength >= 4) {
-            this.getCategories();
+            this.getSubcategories();
         }
     }
 
-    confirmDelete(element: AdminCategoryNameDto) {
-        this.dialogService.openCinfirmDialog("Are you sure to delete category: " + element.label + " ?")
+    getSubcategories() {
+        this.ticketSubcategoryService.getSubCategories()
+            .subscribe(subcategories => this.data = subcategories);
+    }
+
+    confirmDelete(element: AdminSubCategoryNameDto) {
+        this.dialogService.openCinfirmDialog("Are you sure to delete subcategory: " + element.label + " ?")
             .afterClosed()
             .subscribe(result => {
                 if (result) {
-                    this.adminCategoryService.deleteCategory(element.id)
+                    this.adminTicketSubCategoryService.deleteSubCategory(element.id)
                         .subscribe({
                             next: () => {
                                 this.data.forEach((value, index) => {
@@ -91,4 +87,5 @@ export class AdminCategoryComponent implements OnInit, OnDestroy {
             }
             );
     }
+
 }
