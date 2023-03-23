@@ -1,26 +1,78 @@
 <div [formGroup]="parentForm" class="formTicket">
     <mat-form-field appearance="fill">
         <mat-label>Label:</mat-label>
-        <input matInput placeholder="Enter the ticket label" formControlName>
+        <input matInput placeholder="Enter the ticket label" formControlName="label">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Subcategory</mat-label>
+        <mat-select formControlName="subCategoryId">
+            <mat-option *ngFor="let el of subcategories" [value]="el.id">
+                {{el.label}}
+            </mat-option>
+        </mat-select>
     </mat-form-field>
     <h3>Add input fields:</h3>
 
     <ng-container formArrayName="formFields">
         <ng-container *ngFor="let formField of formFields.controls; let i = index">
-            <div [formGroupName]="i">
+            <div [formGroupName]="i" class="formFieldRow">
                 <mat-form-field appearance="fill">
-                    <input matInput formControlName="key" placeholder="Field key">
+                    <input matInput formControlName="key" placeholder="key">
                 </mat-form-field>
+
                 <mat-form-field appearance="fill">
-                    <input matInput formControlName="label" placeholder="Field label">
+                    <input matInput formControlName="label" placeholder="label">
                 </mat-form-field>
+
+                <mat-checkbox class="center" formControlName="required">Required</mat-checkbox>
                 <mat-form-field appearance="fill">
-                    <input matInput formControlName="reqired" placeholder="Field required">
+                    <input matInput formControlName="order" placeholder="order">
                 </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>controlType</mat-label>
+                    <mat-select formControlName="controlType" (selectionChange)="changeControlType($event.value)">
+                        <mat-option *ngFor="let controlType of controlTypes " [value]="controlType">{{controlType}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <div>
+                    <mat-table class="mat-elevation-z8" formArrayName="options">
+                        <ng-container matColumnDef="key">
+                          <mat-header-cell *matHeaderCellDef> Key </mat-header-cell>
+                          <mat-cell *matCellDef="let element"> {{element.key}} </mat-cell>
+                        </ng-container>
+                
+                        <ng-container matColumnDef="label">
+                          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+                          <mat-cell *matCellDef="let element"> {{element.label}} </mat-cell>
+                        </ng-container>
+                    
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                      </mat-table>
+                      <button type="button" (click)="addOption()" class="btn btn-primary">Add new Row</button>
+                </div>
+
+                <mat-form-field appearance="fill">
+                    <input matInput formControlName="type" placeholder="type">
+                </mat-form-field>
+
+                <button mat-mini-fab class="center" (click)="deleteFormField(i)">
+                    <mat-icon>delete_forever</mat-icon>
+                </button>
             </div>
+            <mat-divider class="divider" *ngIf="(i<formFields.length-1)"></mat-divider>
         </ng-container>
     </ng-container>
-    <button mat-mini-fab (click)="addLesson()">
-        <mat-icon class="add-form-field" ()>add</mat-icon>
-    </button>
+    <div>
+        <button mat-mini-fab (click)="addFieldForm()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+    <div>
+        <button mat-flat-button (click)="formPreview()">
+            Preview
+        </button>
+    </div>
 </div>

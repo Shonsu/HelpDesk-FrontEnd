@@ -19,6 +19,7 @@ import { AdminConfirmDialogComponent } from 'src/app/modules/admin/component/adm
 import { AdminTicketAddComponent } from 'src/app/modules/admin/admin-ticket/admin-ticket-add/admin-ticket-add.component';
 import { AdminTicketUpdateComponent } from 'src/app/modules/admin/admin-ticket/admin-ticket-update/admin-ticket-update.component';
 import { AdminTicketFormComponent } from 'src/app/modules/admin/admin-ticket/admin-ticket-form/admin-ticket-form.component';
+import { AdminDynamicFormFieldComponent } from 'src/app/modules/admin/component/admin-dynamic-form-field/admin-dynamic-form-field.component';
 
 
 @NgModule({
@@ -38,8 +39,8 @@ import { AdminTicketFormComponent } from 'src/app/modules/admin/admin-ticket/adm
     AdminConfirmDialogComponent,
     AdminTicketAddComponent,
     AdminTicketUpdateComponent,
-    AdminTicketFormComponent
-
+    AdminTicketFormComponent,
+    AdminDynamicFormFieldComponent
   ],
   imports: [
     CommonModule,

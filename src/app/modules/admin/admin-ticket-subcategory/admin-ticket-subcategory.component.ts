@@ -5,7 +5,7 @@ import { debounceTime, Subject, Subscription } from 'rxjs';
 import { AdminConfirmDialogService } from '../service/admin-confirm-dialog.service';
 import { AdminMessageService } from '../service/admin-message.service';
 import { AdminTicketSubcategoryService } from './admin-ticket-subcategory.service';
-import { AdminSubCategoryNameDto } from './model/adminSubCategoryNameDto';
+import { AdminSubCategoryNameDto } from '../common/model/adminSubCategoryNameDto';
 
 @Component({
     selector: 'app-admin-ticket-subcategory',

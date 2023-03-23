@@ -15,6 +15,7 @@ export class AdminTicketAddComponent implements OnInit {
 
         this.ticketForm = this.formBuilder.group({
             label: [''],
+            subCategoryId: [''],
             formFields: this.formBuilder.array([])
         });
     }

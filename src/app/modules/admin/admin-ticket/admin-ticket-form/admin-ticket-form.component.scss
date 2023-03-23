@@ -1,6 +1,22 @@
-.formTicket{
+.formTicket {
     flex-direction: column;
     display: flex;
-    max-width: 450px;
-    min-width: 150px;
+    gap: 10px;
+}
+
+.formFieldRow {
+    flex-direction: row;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.center {
+    margin-top: 7px;
+}
+
+.mat-divider {
+    display: block;
+    margin-bottom: 18px;
+    border-top-color: rgb(117, 172, 141);
 }
