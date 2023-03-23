@@ -15,9 +15,10 @@ export class AdminTicketFormComponent implements OnInit {
     subcategories: Array<AdminSubCategoryNameDto> = [];
     controlTypes = Object.keys(ControlType);
     additionalOptions = false;
-    dataSource = new BehaviorSubject<AbstractControl[]>([]);
+    dataSource: Array<BehaviorSubject<Array<any>>> = []; 
+    //dataSource = new BehaviorSubject<AbstractControl[]>([]);
     displayColumns = ['key', 'label', 'action']
-    rows: FormArray = this.formBuilder.array([]);
+    // rows: FormArray = this.formBuilder.array([]);
     constructor(
         private formBuilder: FormBuilder,
         private adminTicketFormService: AdminTicketFormService
@@ -36,30 +37,36 @@ export class AdminTicketFormComponent implements OnInit {
             order: ['', Validators.required],
             controlType: ['', Validators.required],
             type: ['', Validators.required],
-            options: this.rows
+            options: this.formBuilder.array([])
         });
         this.formFields.push(formFieldForm);
+        
     }
 
-    addOption() {
+    addOption(i: number) {
+        this.dataSource.push(new BehaviorSubject<AbstractControl[]>([]));
         const row = this.formBuilder.group({
             key: [''],
             value: ['']
         });
-        this.rows.push(row);
-        this.updateView();
-    }
-    deleteOption(index: number) {
-        this.rows.removeAt(index);
-        this.updateView();
+        this.getOptions(i).push(row);
+        this.updateView(i);
     }
 
-    updateView() {
-        this.dataSource.next(this.rows.controls);
+    deleteOption(formFieldIndex: number, optionsIndex: number) {
+        this.getOptions(formFieldIndex).removeAt(optionsIndex);
+        this.updateView(formFieldIndex);
+    }
+
+    updateView(i: number) {
+        this.dataSource.at(i)?.next(this.getOptions(i).controls);
     }
 
     deleteFormField(formFieldIndex: number) {
         this.formFields.removeAt(formFieldIndex);
+        this.dataSource.at(formFieldIndex)?.complete(); // or closed
+        this.dataSource.splice(formFieldIndex, 1);
+
     }
 
     getSubcategories() {
@@ -75,19 +82,24 @@ export class AdminTicketFormComponent implements OnInit {
         myWindow?.document.write("<p>This is 'MsgWindow'. I am 200px wide and 100px tall!</p>");
     }
 
+    getFormFields(): FormArray {
+        return this.parentForm.get("formFields") as FormArray;
+        //return this.parentForm.controls["ticketFormFields"] as FormArray;
+    }
+    getOptions(i: number) {
+        return this.getFormFields().at(i).get("options") as FormArray;
+    }
+
     get label() {
         return this.parentForm.get("label");
     }
+
     get formFields() {
         return this.parentForm.get("formFields") as FormArray;
         //return this.parentForm.controls["ticketFormFields"] as FormArray;
     }
+
     get subCategoryId() {
         return this.parentForm.get("subCategoryId");
-    }
-
-    get options() {
-        return this.parentForm.get("options") as FormArray;
-
     }
 }

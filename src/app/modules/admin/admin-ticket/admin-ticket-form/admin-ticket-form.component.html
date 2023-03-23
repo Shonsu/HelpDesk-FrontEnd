@@ -14,7 +14,7 @@
     <h3>Add input fields:</h3>
 
     <ng-container formArrayName="formFields">
-        <ng-container *ngFor="let formField of formFields.controls; let i = index">
+        <ng-container *ngFor="let formField of getFormFields().controls; let i = index">
             <div [formGroupName]="i" class="formFieldRow">
                 <mat-form-field appearance="fill">
                     <input matInput formControlName="key" placeholder="key">
@@ -38,30 +38,31 @@
                 </mat-form-field>
 
                 <div>
-                    <table mat-table class="mat-elevation-z8" formArrayName="options" [dataSource]="dataSource">
+                    <table mat-table class="mat-elevation-z8" formArrayName="options" [dataSource]="dataSource[i]">
 
                         <!-- <tr mat-header-row *matHeaderRowDef="displayColumns"></tr> -->
-                        <tr mat-row *matRowDef="let row; let i = index; columns: displayColumns;"></tr>
+                        <tr mat-row *matRowDef="let row; let optionsIndex = index; columns: displayColumns;"></tr>
                         <ng-container matColumnDef="key">
                             <th mat-header-cell *matHeaderCellDef> key </th>
-                            <td mat-cell *matCellDef="let row; let i = index" [formGroupName]="i">
+                            <td mat-cell *matCellDef="let row; let optionsIndex = index" [formGroupName]="optionsIndex">
                                 <input type="text" formControlName="key" placeholder="key">
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="label">
                             <th mat-header-cell *matHeaderCellDef> label </th>
-                            <td mat-cell *matCellDef="let row; let i = index" [formGroupName]="i">
+                            <td mat-cell *matCellDef="let row; let optionsIndex = index" [formGroupName]="optionsIndex">
                                 <input type="text" formControlName="label" placeholder="label">
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="action">
                             <th mat-header-cell *matHeaderCellDef> action </th>
-                            <td mat-cell *matCellDef="let row; let i = index" [formGroupName]="i">
-                                <button mat-mini-fab type="button" (click)="deleteOption(i)"><mat-icon>delete_forever</mat-icon></button>
+                            <td mat-cell *matCellDef="let row; let optionsIndex = index" [formGroupName]="optionsIndex">
+                                <!-- {{i}} i {{optionsIndex}} -->
+                                <button mat-mini-fab type="button" (click)="deleteOption(i, optionsIndex)"><mat-icon>delete_forever</mat-icon></button>
                             </td>
                         </ng-container>
                     </table>
-                    <button mat-mini-fab type="button" (click)="addOption()"><mat-icon>add</mat-icon></button>
+                    <button mat-mini-fab type="button" (click)="addOption(i)"><mat-icon>add</mat-icon></button>
                 </div>
 
                 <mat-form-field appearance="fill">
