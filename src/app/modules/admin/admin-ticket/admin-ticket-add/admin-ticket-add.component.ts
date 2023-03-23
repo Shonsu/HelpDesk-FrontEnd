@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-admin-ticket-add',
@@ -14,11 +14,13 @@ export class AdminTicketAddComponent implements OnInit {
     ngOnInit(): void {
 
         this.ticketForm = this.formBuilder.group({
-            label: [''],
-            subCategoryId: [''],
+            label: ['', Validators.required],
+            subCategoryId: ['', Validators.required],
             formFields: this.formBuilder.array([])
         });
     }
-
+    
+    submit() {
+    }
 
 }

@@ -31,16 +31,13 @@
 
                 <mat-form-field appearance="fill">
                     <mat-label>controlType</mat-label>
-                    <mat-select formControlName="controlType" (selectionChange)="changeControlType($event.value)">
+                    <mat-select formControlName="controlType" (selectionChange)="changeControlType($event.value, i)">
                         <mat-option *ngFor="let controlType of controlTypes "
                             [value]="controlType">{{controlType}}</mat-option>
                     </mat-select>
                 </mat-form-field>
-
-                <div>
+                <div *ngIf="additionalOptions">
                     <table mat-table class="mat-elevation-z8" formArrayName="options" [dataSource]="dataSource[i]">
-
-                        <!-- <tr mat-header-row *matHeaderRowDef="displayColumns"></tr> -->
                         <tr mat-row *matRowDef="let row; let optionsIndex = index; columns: displayColumns;"></tr>
                         <ng-container matColumnDef="key">
                             <th mat-header-cell *matHeaderCellDef> key </th>
@@ -57,8 +54,8 @@
                         <ng-container matColumnDef="action">
                             <th mat-header-cell *matHeaderCellDef> action </th>
                             <td mat-cell *matCellDef="let row; let optionsIndex = index" [formGroupName]="optionsIndex">
-                                <!-- {{i}} i {{optionsIndex}} -->
-                                <button mat-mini-fab type="button" (click)="deleteOption(i, optionsIndex)"><mat-icon>delete_forever</mat-icon></button>
+                                <button mat-mini-fab type="button"
+                                    (click)="deleteOption(i, optionsIndex)"><mat-icon>delete_forever</mat-icon></button>
                             </td>
                         </ng-container>
                     </table>
@@ -82,8 +79,14 @@
         </button>
     </div>
     <div>
+        <div>
+            <button mat-flat-button color="primary" [disabled]="!parentForm.valid">Save</button>
+        </div>
         <button mat-flat-button (click)="formPreview()">
             Preview
         </button>
+    </div>
+    <div>
+        {{this.parentForm.value | json}}
     </div>
 </div>
