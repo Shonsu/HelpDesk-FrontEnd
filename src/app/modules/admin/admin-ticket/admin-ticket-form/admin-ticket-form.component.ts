@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 import { AdminSubCategoryNameDto } from '../../common/model/adminSubCategoryNameDto';
 import { ControlType } from '../../common/model/controlType';
 import { AdminTicketFormService } from './admin-ticket-form.service';
@@ -14,8 +15,9 @@ export class AdminTicketFormComponent implements OnInit {
     subcategories: Array<AdminSubCategoryNameDto> = [];
     controlTypes = Object.keys(ControlType);
     additionalOptions = false;
-    dataSource!: Array<Map<String, String>>;
-    displayedColumns: string[] = ['key', 'label']
+    dataSource = new BehaviorSubject<AbstractControl[]>([]);
+    displayColumns = ['key', 'label', 'action']
+    rows: FormArray = this.formBuilder.array([]);
     constructor(
         private formBuilder: FormBuilder,
         private adminTicketFormService: AdminTicketFormService
@@ -34,16 +36,26 @@ export class AdminTicketFormComponent implements OnInit {
             order: ['', Validators.required],
             controlType: ['', Validators.required],
             type: ['', Validators.required],
-            options: this.formBuilder.array([])
+            options: this.rows
         });
         this.formFields.push(formFieldForm);
     }
 
-    addOption(){
-        this.options.push(this.formBuilder.group({
+    addOption() {
+        const row = this.formBuilder.group({
             key: [''],
             value: ['']
-        }))
+        });
+        this.rows.push(row);
+        this.updateView();
+    }
+    deleteOption(index: number) {
+        this.rows.removeAt(index);
+        this.updateView();
+    }
+
+    updateView() {
+        this.dataSource.next(this.rows.controls);
     }
 
     deleteFormField(formFieldIndex: number) {
@@ -74,7 +86,7 @@ export class AdminTicketFormComponent implements OnInit {
         return this.parentForm.get("subCategoryId");
     }
 
-    get options(){
+    get options() {
         return this.parentForm.get("options") as FormArray;
 
     }
