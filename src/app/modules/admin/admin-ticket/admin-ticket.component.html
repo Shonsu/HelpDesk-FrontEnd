@@ -1,1 +1,37 @@
-<p>admin-ticket works!</p>
+<div class="headerRow">
+    <div class="headerLabel">
+        <h1> Ticket's category list</h1>
+    </div>
+    <div class="buttonAdd">
+        <button mat-raised-button color="accent" routerLink="/admin/tickets/add">
+            Add ticket form<mat-icon>add</mat-icon>
+        </button>
+    </div>
+</div>
+<mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="searchOnKeyUp($event)" placeholder="No./Label" #input>
+</mat-form-field>
+<table mat-table [dataSource]="data" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+    <ng-container matColumnDef="label">
+        <th mat-header-cell *matHeaderCellDef> Label </th>
+        <td mat-cell *matCellDef="let element"> {{element.label}} </td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-icon-button [routerLink]="['/admin/tickets/update', element.id]">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="confirmDelete(element)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+</table>

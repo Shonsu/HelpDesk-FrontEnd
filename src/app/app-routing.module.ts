@@ -11,6 +11,7 @@ import { AdminTicketSubcategoryComponent } from './modules/admin/admin-ticket-su
 import { AdminTicketSubcategoryAddComponent } from './modules/admin/admin-ticket-subcategory/admin-ticket-subcategory-add/admin-ticket-subcategory-add.component';
 import { AdminTicketSubcategoryUpdateComponent } from './modules/admin/admin-ticket-subcategory/admin-ticket-subcategory-update/admin-ticket-subcategory-update.component';
 import { AdminTicketAddComponent } from './modules/admin/admin-ticket/admin-ticket-add/admin-ticket-add.component';
+import { AdminTicketUpdateComponent } from './modules/admin/admin-ticket/admin-ticket-update/admin-ticket-update.component';
 
 const routes: Routes = [
     { path: '', component: DefaultComponent, children: [] },
@@ -19,7 +20,7 @@ const routes: Routes = [
             { path: 'admin', component: AdminComponent },
             { path: 'admin/tickets', component: AdminTicketComponent },
             { path: 'admin/tickets/add', component: AdminTicketAddComponent },
-            { path: 'admin/tickets/update', component: AdminTicketAddComponent },
+            { path: 'admin/tickets/update/:id', component: AdminTicketUpdateComponent },
             { path: 'admin/categories', component: AdminCategoryComponent },
             { path: 'admin/categories/add', component: AdminTicketCategoryAddComponent },
             { path: 'admin/categories/update/:id', component: AdminTicketCategoryUpdateComponent },

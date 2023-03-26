@@ -1,1 +1,4 @@
-<p>admin-ticket-update works!</p>
+<h2>Update ticket form</h2>
+<form [formGroup]="ticketForm">
+    <app-admin-ticket-form [parentForm]="ticketForm" (parentSubmit)="submit()" [dataSource]="dataSource"></app-admin-ticket-form>
+</form>

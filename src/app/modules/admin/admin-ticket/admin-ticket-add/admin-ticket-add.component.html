@@ -1,4 +1,4 @@
 <h2>Add ticket form</h2>
-<form [formGroup]="ticketForm" (submit)="submit()">
-    <app-admin-ticket-form [parentForm]="ticketForm"></app-admin-ticket-form>
+<form [formGroup]="ticketForm">
+    <app-admin-ticket-form [parentForm]="ticketForm" (parentSubmit)="submit()"></app-admin-ticket-form>
 </form>

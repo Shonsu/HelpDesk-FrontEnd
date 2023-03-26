@@ -34,9 +34,8 @@ export class AdminTicketCategoryAddComponent implements OnInit {
                     this.router.navigate(["/admin/categories"])
                         .then(() => this.snackBar.open("Category has been added", '', { duration: 3000 }));
                 },
-                error: err => {
-                    this.adminMessageService.addSpringErrors(err.error)
-                }
+                error: err => this.adminMessageService.addSpringErrors(err.error)
+
             })
     }
 }
