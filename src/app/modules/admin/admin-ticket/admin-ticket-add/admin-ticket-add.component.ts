@@ -32,7 +32,6 @@ export class AdminTicketAddComponent implements OnInit {
     }
 
     submit() {
-        console.log("submit");
         this.adminTicketAddService.saveFormTicket({
             label: this.ticketForm.get('label')?.value,
             subCategoryId: this.ticketForm.get('subCategoryId')?.value,
@@ -44,7 +43,6 @@ export class AdminTicketAddComponent implements OnInit {
             },
             error: err => { this.messageService.addSpringErrors(err.error) }
         });
-
     }
 
 

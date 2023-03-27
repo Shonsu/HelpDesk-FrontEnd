@@ -16,6 +16,10 @@
     <ng-container formArrayName="formFields">
         <ng-container *ngFor="let formField of getFormFields().controls; let i = index">
             <div [formGroupName]="i" class="formFieldRow">
+                <!-- <mat-form-field appearance="fill">
+                    <input matInput formControlName="id" placeholder="id">
+                </mat-form-field> -->
+
                 <mat-form-field appearance="fill">
                     <input matInput formControlName="key" placeholder="key">
                 </mat-form-field>

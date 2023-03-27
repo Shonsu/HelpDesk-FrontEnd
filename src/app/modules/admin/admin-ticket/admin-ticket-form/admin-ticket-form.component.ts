@@ -41,10 +41,11 @@ export class AdminTicketFormComponent implements OnInit, OnDestroy {
     }
     addFieldForm() {
         const formFieldForm = this.formBuilder.group({
+            id: [''],
             key: ['', Validators.required],
             label: ['', Validators.required],
             required: [false, Validators.required],
-            order: ['', Validators.required],
+            order: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
             controlType: ['', Validators.required],
             type: ['', Validators.required],
             options: this.formBuilder.array([])
@@ -57,6 +58,7 @@ export class AdminTicketFormComponent implements OnInit, OnDestroy {
     addOption(i: number) {
         console.log("adding option on row: " + i);
         const row = this.formBuilder.group({
+            id: [''],
             key: ['', Validators.required],
             value: ['', Validators.required]
         });
@@ -113,13 +115,17 @@ export class AdminTicketFormComponent implements OnInit, OnDestroy {
         return this.getFormFields().at(formFieldIndex).get('categoryId');
     }
 
-    // get key() {
-    //     return this.parentForm.get("key");
-    // }
+    get id() {
+        return this.parentForm.get("id");
+    }
 
-    // get required() {
-    //     return this.parentForm.get("required");
-    // }
+    get key() {
+        return this.parentForm.get("key");
+    }
+
+    get required() {
+        return this.parentForm.get("required");
+    }
 
     get label() {
         return this.parentForm.get("label");
@@ -130,6 +136,8 @@ export class AdminTicketFormComponent implements OnInit, OnDestroy {
     }
 
     get formFields(): FormArray {
+        let fa = this.parentForm.get("formFields") as FormArray;
+
         return this.parentForm.get("formFields") as FormArray;
     }
 
