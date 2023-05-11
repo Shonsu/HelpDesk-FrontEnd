@@ -1,0 +1,39 @@
+.loginPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #292b31;
+    padding-top: 10%;
+    font-size: 24px;
+    color: #ffffff;
+    row-gap: 20px;
+    height: 100%;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+}
+
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: rgb(181, 225, 176);
+}
+
+.content {
+    flex-direction: row;
+    flex: 1 1 auto;
+}
+
+.logo {
+    font-size: 24px;
+}
+
+.loginicon {
+    font-size: 30px;
+    height: 30px;
+    width: 30px;
+}

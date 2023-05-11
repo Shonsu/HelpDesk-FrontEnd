@@ -1,17 +1,31 @@
-<div [formGroup]="form">
-    <label [attr.for]="field.key">{{field.label}}</label>
+<div [formGroup]="form" class="formTicket">
+    
 
-    <div [ngSwitch]="field.controlType">
-
-        <input *ngSwitchCase="'TEXTBOX'" [formControlName]="field.key" [id]="field.key" [type]="field.type">
+    <div [ngSwitch]="field.controlType" class="formFieldRow">
+        <label [attr.for]="field.key" class="label">{{field.label}}</label>
+        <mat-form-field appearance="fill" *ngSwitchCase="'TEXTBOX'">
+            <mat-label>{{field.label}}</mat-label>
+            <input matInput  [formControlName]="field.key" [id]="field.key" [type]="field.type">
+        </mat-form-field>
         
-        <input *ngSwitchCase="'CHECKBOX'" [formControlName]="field.key" [id]="field.key" [type]="field.type">
+        <!-- <input *ngSwitchCase="'CHECKBOX'" [formControlName]="field.key" [id]="field.key" [type]="field.type"> -->
 
-        <select [id]="field.key" *ngSwitchCase="'DROPDOWN'" [formControlName]="field.key">
+        <!-- <select [id]="field.key" *ngSwitchCase="'DROPDOWN'" [formControlName]="field.key">
             <option *ngFor="let opt of field.options" [value]="opt.key">{{opt.value}}</option>
-        </select>
+        </select> -->
+        <mat-checkbox *ngSwitchCase="'CHECKBOX'" [formControlName]="field.key">{{field.label}}</mat-checkbox>
 
+        <mat-form-field appearance="fill" *ngSwitchCase="'DROPDOWN'">
+            <mat-label>{{field.label}}</mat-label>
+            <mat-select [formControlName]="field.key">
+                <mat-option *ngFor="let opt of field.options" [value]="opt.key">
+                {{opt.value}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div *ngIf="!isValid">{{field.label}} is required</div>
     </div>
 
-    <div class="errorMessage" *ngIf="!isValid">{{field.label}} is required</div>
+    
 </div>

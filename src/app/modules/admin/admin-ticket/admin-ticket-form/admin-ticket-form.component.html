@@ -87,9 +87,6 @@
         <div>
             <button mat-flat-button color="primary" (click)="submit()" [disabled]="!parentForm.valid">Save</button>
         </div>
-        <button mat-flat-button (click)="formPreview()">
-            Preview
-        </button>
     </div>
     <div>
         {{this.parentForm.value | json}}

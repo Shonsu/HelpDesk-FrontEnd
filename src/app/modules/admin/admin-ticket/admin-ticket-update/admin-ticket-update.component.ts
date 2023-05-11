@@ -37,11 +37,13 @@ export class AdminTicketUpdateComponent implements OnInit {
     getTicketForm() {
         let id = Number(this.router.snapshot.params['id']);
         this.ticketUpdateService.getTicketForm(id)
-            .subscribe(ticketForm => this.mapFromValues(ticketForm));
+            .subscribe(ticketForm => {
+                this.mapFromValues(ticketForm);
+            });
     }
 
     mapFromValues(ticketForm: AdminTicketForm): void {
-
+        ticketForm.ticketFormFields.sort((a, b) => a.order - b.order);
         this.ticketForm.patchValue({
             label: ticketForm.label,
             subCategoryId: ticketForm.subCategoryId
@@ -77,7 +79,6 @@ export class AdminTicketUpdateComponent implements OnInit {
             i++;
 
         });
-
     }
     updateView(i: number) {
         this.dataSource.at(i)?.next(this.getOptions(i).controls);

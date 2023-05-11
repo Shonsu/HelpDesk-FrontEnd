@@ -10,6 +10,7 @@ export class AdminFieldControllService {
     constructor() { }
 
     toFormGroup(fields: FieldBase<string>[]) {
+        fields?.sort((a, b) => a.order - b.order);
         const group: any = {};
         fields.forEach(field => {
             group[field.key] = field.required ? new FormControl(field.value || '', Validators.required)

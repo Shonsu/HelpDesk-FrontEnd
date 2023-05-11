@@ -12,7 +12,7 @@ export class AdminCategoryService {
     constructor(private http: HttpClient) { }
 
     getCategories(): Observable<AdminCategoryNameDto[]> {
-        return this.http.get<AdminCategoryNameDto[]>("api/admin/categories");
+        return this.http.get<AdminCategoryNameDto[]>("/api/admin/categories");
     }
     createCategory(value: any): Observable<AdminCategory> {
         return this.http.post<AdminCategory>("/api/admin/categories", value);

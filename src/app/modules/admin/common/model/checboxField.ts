@@ -1,5 +1,5 @@
 import { FieldBase } from "./fieldBase";
 
-export class FieldCheckbox extends FieldBase<string>{
+export class CheckboxField extends FieldBase<string>{
     override controlType = 'CHECKBOX';
 }
