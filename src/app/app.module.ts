@@ -9,6 +9,7 @@ import { AdminpageModule } from './layouts/adminpage/adminpage.module';
 import { AdminpageemptyModule } from './layouts/adminpageempty/adminpageempty.module';
 import { DefaultModule } from './layouts/default/default.module';
 import { JwtInterceptor } from './modules/common/interceptor/jwt.interceptor';
+import { HelpdeskpageModule } from './layouts/helpdeskpage/helpdeskpage.module';
 
 @NgModule({
     declarations: [
@@ -20,6 +21,7 @@ import { JwtInterceptor } from './modules/common/interceptor/jwt.interceptor';
         DefaultModule,
         AdminpageModule,
         AdminpageemptyModule,
+        HelpdeskpageModule,
         BrowserAnimationsModule,
         HttpClientModule
     ],

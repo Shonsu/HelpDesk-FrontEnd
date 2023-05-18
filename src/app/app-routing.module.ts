@@ -16,6 +16,8 @@ import { AdminTicketUpdateComponent } from './modules/admin/admin-ticket/admin-t
 import { AdminTicketComponent } from './modules/admin/admin-ticket/admin-ticket.component';
 import { AdminComponent } from './modules/admin/admin.component';
 import { AdminAuthorizeGuard } from './modules/admin/common/guard/adminAuthorizeGuard';
+import { HelpdeskpageComponent } from './layouts/helpdeskpage/helpdeskpage.component';
+import { HelpdeskComponent } from './modules/helpdesk/helpdesk/helpdesk.component';
 
 const routes: Routes = [
     { path: '', component: DefaultComponent, children: [] },
@@ -37,6 +39,11 @@ const routes: Routes = [
     {
         path: '', component: AdminpageemptyComponent, children: [
             { path: 'admin/login', component: AdminLoginComponent }
+        ]
+    },
+    {
+        path: '', component: HelpdeskpageComponent, children: [
+            { path: 'helpdesk', component: HelpdeskComponent }
         ]
     }
 ];
